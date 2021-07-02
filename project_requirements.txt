@@ -23,6 +23,10 @@ Then in karma.conf.js, make the following changes:
     In addition to using Firefox as the browser for testing, this switches it to "headless" mode, meaning the browser window doesn't actually display during testing. The tests themselves still think they are executing in a browser window, however. Headless mode is needed later when we still want to run these sorts of tests, but they will run in a Continuous Integration environment without a graphical desktop.
     change autoWatch: true to false and singleRun: false to true to keep Karma from running in the background
 
+    npm install ts-node --save-dev
+    npm install typescript -g
+    npm install typescript --save-dev
+
 <!-- ##### Confirm Node Version ##### //-->
 
 node --version
