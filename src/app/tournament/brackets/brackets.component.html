@@ -1,0 +1,26 @@
+<h2 id="subpageTitle">Brackets</h2>
+
+<h3>Round: {{roundId}}</h3>
+
+<h4 *ngIf="message">{{message}}</h4>
+
+<h4 *ngIf="getChampion()">Winner: {{getChampion()}}</h4>
+
+<div *ngFor="let m of seeds; index as i">
+  <div>
+    <h4>Match {{i+1}}</h4>
+    <input type="radio"
+           [name]="'match'+m.id"
+           [value]="m.player1"
+           (click)="m.player1Wins()">{{m.player1}}
+    <input type="radio"
+           [name]="'match'+m.id"
+           [value]="m.player2"
+           (click)="m.player2Wins()">{{m.player2}}
+  </div>
+</div>
+
+<button
+    *ngIf="!getChampion()" 
+    type='button'
+    (click)="completeRound()">Complete Round</button>

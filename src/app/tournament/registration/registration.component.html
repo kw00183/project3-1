@@ -1,0 +1,25 @@
+<h2>Register Players</h2>
+
+<div>{{message}}</div>
+
+<form (ngSubmit)="registerContestants()">
+  <div *ngFor="let player of players; index as i; trackBy:trackByFn">
+    <input [id]="'contestant'+i"
+           type="text"
+           [placeholder]="'Contestant ' +i"
+           [name]="'Contestant '+i"
+           [(ngModel)]="players[i]">
+  </div>
+  
+  <button type="submit">Register Contestants</button> 
+</form>
+
+<button type='button'
+    (click)="autofillTwoPlayers()">Autofill 2 Players</button>
+    
+<button type='button'
+    (click)="autofillFourPlayers()">Autofill 4 Players</button>
+    
+    
+<button type='button'
+    (click)="autofillEightPlayers()">Autofill 8 Players</button>
