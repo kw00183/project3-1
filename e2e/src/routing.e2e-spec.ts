@@ -41,4 +41,19 @@ describe('Brackets App', () => {
     welcomeLink.click();
     expect(element(by.id('subpageTitle')).getText()).toEqual('Brackets App');
   });
+
+//success scenarios
+  it('should navigate to the registration page and input 2 contestants', function() {
+    browser.get('/');
+    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
+    registrationLink.click();
+    expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
+    var contestant1 = browser.findElement(by.id('contestant1'));
+    contestant1.sendKeys('Sally');
+    var contestant2 = browser.findElement(by.id('contestant2'));
+    contestant2.sendKeys('Ben');
+    var registerButton = element(by.css("button[type = 'submit']"));
+    registerButton.click();
+    expect(element.all(by.tagName('div')).getText()).toContain('Sally,Ben');
+  });
 });
