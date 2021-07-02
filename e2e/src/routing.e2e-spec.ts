@@ -10,7 +10,7 @@ describe('Brackets App', () => {
     page = new AppPage();
   });
 
-  it('should expect h2 tag to contain Brackets App', function() {
+  it('should load the app to the hello page with h2 tag that contains text Brackets App', function() {
     browser.get('/');
     expect(element(by.id('subpageTitle')).getText()).toEqual('Brackets App');
   });
