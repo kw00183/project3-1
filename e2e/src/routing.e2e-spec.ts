@@ -5,49 +5,41 @@ import protractor = require('protractor');
 import { HelperService } from '../../src/app/services/helper.service';
 
 describe('Brackets App', () => {
-  let page: AppPage;
+  var page: AppPage;
+  var helperService: HelperService;
 
   beforeEach(() => {
     page = new AppPage();
+    helperService = new HelperService();
+    helperService.loadBrowser();
   });
 
   it('should load the app to the hello page with h2 tag that contains text Brackets App', function() {
-    browser.get('/');
     expect(element(by.id('subpageTitle')).getText()).toEqual('Brackets App');
   });
 
   it('should navigate to the registration page', function() {
-    browser.get('/');
-    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
-    registrationLink.click();
+    helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
   });
 
   it('should navigate to the brackets page', function() {
-    browser.get('/');
-    var bracketsLink = browser.findElement(by.partialLinkText('Brackets'));
-    bracketsLink.click();
+    helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
   });
 
   it('should navigate to the welcome page via the registration and the brackets page', function() {
-    browser.get('/');
-    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
-    registrationLink.click();
+    helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
-    var bracketsLink = browser.findElement(by.partialLinkText('Brackets'));
-    bracketsLink.click();
+    helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
-    var welcomeLink = browser.findElement(by.partialLinkText('Welcome'));
-    welcomeLink.click();
+    helperService.clickWelcomeLink();
     expect(element(by.id('subpageTitle')).getText()).toEqual('Brackets App');
   });
 
 //success scenarios - number of contestants 2,4,8
   it('should choose winner from input of 2 unique contestants', function() {
-    browser.get('/');
-    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
-    registrationLink.click();
+    helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
     var contestant0 = browser.findElement(by.id('contestant0'));
@@ -59,8 +51,7 @@ describe('Brackets App', () => {
     registerButton.click();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben');
 
-    var bracketsLink = browser.findElement(by.partialLinkText('Brackets'));
-    bracketsLink.click();
+    helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
 
     //Round 1 :: match1 - Sally,Ben - winner Sally
@@ -77,9 +68,7 @@ describe('Brackets App', () => {
   });
 
   it('should choose winner from input of 4 unique contestants', function() {
-    browser.get('/');
-    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
-    registrationLink.click();
+    helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
     var contestant0 = browser.findElement(by.id('contestant0'));
@@ -95,8 +84,7 @@ describe('Brackets App', () => {
     registerButton.click();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan');
 
-    var bracketsLink = browser.findElement(by.partialLinkText('Brackets'));
-    bracketsLink.click();
+    helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
 
     //Round1 :: match1 - Sally,Ben - winner Sally
@@ -133,9 +121,7 @@ describe('Brackets App', () => {
   });
 
   it('should choose winner from input of 8 unique contestants', function() {
-    browser.get('/');
-    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
-    registrationLink.click();
+    helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
     var contestant0 = browser.findElement(by.id('contestant0'));
@@ -159,8 +145,7 @@ describe('Brackets App', () => {
     registerButton.click();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan,Rick,Morty,Jerry,Beth');
 
-    var bracketsLink = browser.findElement(by.partialLinkText('Brackets'));
-    bracketsLink.click();
+    helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
 
     //Round1 :: match1 - Sally,Ben - winner Ben
@@ -233,9 +218,7 @@ describe('Brackets App', () => {
 
   //success scenarios - autofills 2,4,8
   it('should choose winner from autofill input Zoe/Kaylee', function() {
-    browser.get('/');
-    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
-    registrationLink.click();
+    helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
     var auto2Button = element.all(by.css("button[type = 'button']")).get(0);
@@ -250,8 +233,7 @@ describe('Brackets App', () => {
     registerButton.click();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Zoe,Kaylee');
 
-    var bracketsLink = browser.findElement(by.partialLinkText('Brackets'));
-    bracketsLink.click();
+    helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
 
     //Round 1 :: match1 - Zoe,Kaylee - winner Zoe
@@ -268,9 +250,7 @@ describe('Brackets App', () => {
   });
 
   it('should choose winner from autofill input John/Paul/George/Ringo', function() {
-    browser.get('/');
-    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
-    registrationLink.click();
+    helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
     var auto4Button = element.all(by.css("button[type = 'button']")).get(1);
@@ -289,8 +269,7 @@ describe('Brackets App', () => {
     registerButton.click();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('John,Paul,George,Ringo');
 
-    var bracketsLink = browser.findElement(by.partialLinkText('Brackets'));
-    bracketsLink.click();
+    helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
 
     //Round1 :: match1 - John,Paul - winner John
@@ -327,9 +306,7 @@ describe('Brackets App', () => {
   });
 
   it('should choose winner from autofill input Leia/Luke/Lando/Han/Chewy/R2D2/C3P0/Vader', function() {
-    browser.get('/');
-    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
-    registrationLink.click();
+    helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
     var auto8Button = element.all(by.css("button[type = 'button']")).get(2);
@@ -356,8 +333,7 @@ describe('Brackets App', () => {
     registerButton.click();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Leia,Luke,Lando,Han,Chewy,R2D2,C3P0,Vader');
 
-    var bracketsLink = browser.findElement(by.partialLinkText('Brackets'));
-    bracketsLink.click();
+    helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
 
     //Round1 :: match1 - Leia,Luke - winner Leia
@@ -431,9 +407,7 @@ describe('Brackets App', () => {
 
   //odd entries allowed
   it('should navigate to the registration page, input 2 identical contestants different case, reflect 2 names', function() {
-    browser.get('/');
-    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
-    registrationLink.click();
+    helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
     var contestant0 = browser.findElement(by.id('contestant0'));
     contestant0.sendKeys('Sally');
@@ -445,9 +419,7 @@ describe('Brackets App', () => {
   });
 
   it('should navigate to the registration page, input 2 identical contestants extra space on 1, reflect 2 names', function() {
-    browser.get('/');
-    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
-    registrationLink.click();
+    helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
     var contestant0 = browser.findElement(by.id('contestant0'));
     contestant0.sendKeys('Sally');
@@ -459,9 +431,7 @@ describe('Brackets App', () => {
   });
 
   it('should navigate to the registration page, input 2 unique contestants only spaces, reflect 2 ghost names', function() {
-    browser.get('/');
-    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
-    registrationLink.click();
+    helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
     var contestant0 = browser.findElement(by.id('contestant0'));
     contestant0.sendKeys(' ');
@@ -474,9 +444,7 @@ describe('Brackets App', () => {
 
   //error scenarios - registration errors
   it('should navigate to the registration page, input 0 contestant, trigger error message', function() {
-    browser.get('/');
-    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
-    registrationLink.click();
+    helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
     var registerButton = element(by.css("button[type = 'submit']"));
@@ -485,9 +453,7 @@ describe('Brackets App', () => {
   });
 
   it('should navigate to the registration page, input 1 contestant, trigger error message', function() {
-    browser.get('/');
-    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
-    registrationLink.click();
+    helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
     var contestant0 = browser.findElement(by.id('contestant0'));
@@ -499,9 +465,7 @@ describe('Brackets App', () => {
   });
 
   it('should navigate to the registration page, input 3 unique contestants, trigger error message', function() {
-    browser.get('/');
-    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
-    registrationLink.click();
+    helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
     var contestant0 = browser.findElement(by.id('contestant0'));
@@ -517,9 +481,7 @@ describe('Brackets App', () => {
   });
 
   it('should navigate to the registration page, input 5 unique contestants, trigger error message', function() {
-    browser.get('/');
-    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
-    registrationLink.click();
+    helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
     var contestant0 = browser.findElement(by.id('contestant0'));
@@ -539,9 +501,7 @@ describe('Brackets App', () => {
   });
 
   it('should navigate to the registration page, input 6 unique contestants, trigger error message', function() {
-    browser.get('/');
-    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
-    registrationLink.click();
+    helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
     var contestant0 = browser.findElement(by.id('contestant0'));
@@ -563,9 +523,7 @@ describe('Brackets App', () => {
   });
 
   it('should navigate to the registration page, input 7 unique contestants, trigger error message', function() {
-    browser.get('/');
-    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
-    registrationLink.click();
+    helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
     var contestant0 = browser.findElement(by.id('contestant0'));
@@ -589,9 +547,7 @@ describe('Brackets App', () => {
   });
 
   it('should navigate to the registration page, input 2 identical contestants same case, trigger error message', function() {
-    browser.get('/');
-    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
-    registrationLink.click();
+    helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
     var contestant0 = browser.findElement(by.id('contestant0'));
     contestant0.sendKeys('sally');
@@ -604,9 +560,7 @@ describe('Brackets App', () => {
 
   //error scenarios - brackets errors
   it('should throw error if no winner selected (round1-match1) on "Complete Round"', function() {
-    browser.get('/');
-    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
-    registrationLink.click();
+    helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
     var contestant0 = browser.findElement(by.id('contestant0'));
@@ -618,8 +572,7 @@ describe('Brackets App', () => {
     registerButton.click();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben');
 
-    var bracketsLink = browser.findElement(by.partialLinkText('Brackets'));
-    bracketsLink.click();
+    helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
 
     //Round 1 :: match1 - Sally,Ben - winner Sally
@@ -634,9 +587,7 @@ describe('Brackets App', () => {
   });
 
   it('should throw error if no winner selected (round1-match2) on "Complete Round"', function() {
-    browser.get('/');
-    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
-    registrationLink.click();
+    helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
     var contestant0 = browser.findElement(by.id('contestant0'));
@@ -652,8 +603,7 @@ describe('Brackets App', () => {
     registerButton.click();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan');
 
-    var bracketsLink = browser.findElement(by.partialLinkText('Brackets'));
-    bracketsLink.click();
+    helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
 
     //Round1 :: match1 - Sally,Ben - winner Sally
@@ -677,9 +627,7 @@ describe('Brackets App', () => {
   });
 
   it('should throw error if no winner selected (round1-match3) on "Complete Round"', function() {
-    browser.get('/');
-    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
-    registrationLink.click();
+    helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
     var contestant0 = browser.findElement(by.id('contestant0'));
@@ -703,8 +651,7 @@ describe('Brackets App', () => {
     registerButton.click();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan,Rick,Morty,Jerry,Beth');
 
-    var bracketsLink = browser.findElement(by.partialLinkText('Brackets'));
-    bracketsLink.click();
+    helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
 
     //Round1 :: match1 - Sally,Ben - winner Ben
@@ -744,9 +691,7 @@ describe('Brackets App', () => {
   });
 
   it('should throw error if no winner selected (round1-match4) on "Complete Round"', function() {
-    browser.get('/');
-    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
-    registrationLink.click();
+    helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
     var contestant0 = browser.findElement(by.id('contestant0'));
@@ -770,8 +715,7 @@ describe('Brackets App', () => {
     registerButton.click();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan,Rick,Morty,Jerry,Beth');
 
-    var bracketsLink = browser.findElement(by.partialLinkText('Brackets'));
-    bracketsLink.click();
+    helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
 
     //Round1 :: match1 - Sally,Ben - winner Ben
@@ -811,9 +755,7 @@ describe('Brackets App', () => {
   });
 
   it('should throw error if no winner selected (round2-match1) on "Complete Round"', function() {
-    browser.get('/');
-    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
-    registrationLink.click();
+    helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
     var contestant0 = browser.findElement(by.id('contestant0'));
@@ -837,8 +779,7 @@ describe('Brackets App', () => {
     registerButton.click();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan,Rick,Morty,Jerry,Beth');
 
-    var bracketsLink = browser.findElement(by.partialLinkText('Brackets'));
-    bracketsLink.click();
+    helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
 
     //Round1 :: match1 - Sally,Ben - winner Ben
@@ -897,9 +838,7 @@ describe('Brackets App', () => {
   });
 
   it('should throw error if no winner selected (round2-match2) on "Complete Round"', function() {
-    browser.get('/');
-    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
-    registrationLink.click();
+    helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
     var contestant0 = browser.findElement(by.id('contestant0'));
@@ -923,8 +862,7 @@ describe('Brackets App', () => {
     registerButton.click();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan,Rick,Morty,Jerry,Beth');
 
-    var bracketsLink = browser.findElement(by.partialLinkText('Brackets'));
-    bracketsLink.click();
+    helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
 
     //Round1 :: match1 - Sally,Ben - winner Ben
@@ -983,9 +921,7 @@ describe('Brackets App', () => {
   });
 
   it('should throw error if no winner selected (round3-match1) on "Complete Round"', function() {
-    browser.get('/');
-    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
-    registrationLink.click();
+    helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
     var contestant0 = browser.findElement(by.id('contestant0'));
@@ -1009,8 +945,7 @@ describe('Brackets App', () => {
     registerButton.click();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan,Rick,Morty,Jerry,Beth');
 
-    var bracketsLink = browser.findElement(by.partialLinkText('Brackets'));
-    bracketsLink.click();
+    helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
 
     //Round1 :: match1 - Sally,Ben - winner Ben
