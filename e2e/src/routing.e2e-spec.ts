@@ -47,8 +47,7 @@ describe('Brackets App', () => {
     var contestant1 = browser.findElement(by.id('contestant1'));
     contestant1.sendKeys('Ben');
 
-    var registerButton = element(by.css("button[type = 'submit']"));
-    registerButton.click();
+    helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben');
 
     helperService.clickBracketsLink();
@@ -62,8 +61,7 @@ describe('Brackets App', () => {
 
     player1.click();
 
-    var completeButton = element(by.css("button[type = 'button']"));
-    completeButton.click();
+    helperService.clickCompleteRoundButton();
     expect(element.all(by.tagName('h4')).getText()).toContain('Winner: Sally');
   });
 
@@ -80,8 +78,7 @@ describe('Brackets App', () => {
     var contestant3 = browser.findElement(by.id('contestant3'));
     contestant3.sendKeys('Dan');
 
-    var registerButton = element(by.css("button[type = 'submit']"));
-    registerButton.click();
+    helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan');
 
     helperService.clickBracketsLink();
@@ -103,8 +100,7 @@ describe('Brackets App', () => {
 
     player2.click();
 
-    var completeButton = element(by.css("button[type = 'button']"));
-    completeButton.click();
+    helperService.clickCompleteRoundButton();
 
     //Round2 :: match1 - Sally,Dan - winner Dan
     var player1 = element.all(by.css("input[name=match1]")).get(0);
@@ -114,8 +110,7 @@ describe('Brackets App', () => {
 
     player2.click();
 
-    var completeButton = element(by.css("button[type = 'button']"));
-    completeButton.click();
+    helperService.clickCompleteRoundButton();
 
     expect(element.all(by.tagName('h4')).getText()).toContain('Winner: Dan');
   });
@@ -141,8 +136,7 @@ describe('Brackets App', () => {
     var contestant7 = browser.findElement(by.id('contestant7'));
     contestant7.sendKeys('Beth');
 
-    var registerButton = element(by.css("button[type = 'submit']"));
-    registerButton.click();
+    helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan,Rick,Morty,Jerry,Beth');
 
     helperService.clickBracketsLink();
@@ -180,8 +174,7 @@ describe('Brackets App', () => {
 
     player2.click();
 
-    var completeButton = element(by.css("button[type = 'button']"));
-    completeButton.click();
+    helperService.clickCompleteRoundButton();
 
     //Round2 :: match1 - Ben,Kim - winner Kim
     var player1 = element.all(by.css("input[name=match1]")).get(0);
@@ -199,8 +192,7 @@ describe('Brackets App', () => {
 
     player2.click();
 
-    var completeButton = element(by.css("button[type = 'button']"));
-    completeButton.click();
+    helperService.clickCompleteRoundButton();
 
     //Round3 :: match2 - Kim,Beth - winner Kim
     var player1 = element.all(by.css("input[name=match1]")).get(0);
@@ -210,8 +202,7 @@ describe('Brackets App', () => {
 
     player1.click();
 
-    var completeButton = element(by.css("button[type = 'button']"));
-    completeButton.click();
+    helperService.clickCompleteRoundButton();
 
     expect(element.all(by.tagName('h4')).getText()).toContain('Winner: Kim');
   });
@@ -229,8 +220,7 @@ describe('Brackets App', () => {
     var contestant1 = browser.findElement(by.id('contestant1'));
     expect(contestant1.getAttribute('value')).toEqual('Kaylee');
 
-    var registerButton = element(by.css("button[type = 'submit']"));
-    registerButton.click();
+    helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Zoe,Kaylee');
 
     helperService.clickBracketsLink();
@@ -244,8 +234,7 @@ describe('Brackets App', () => {
 
     player1.click();
 
-    var completeButton = element(by.css("button[type = 'button']"));
-    completeButton.click();
+    helperService.clickCompleteRoundButton();
     expect(element.all(by.tagName('h4')).getText()).toContain('Winner: Zoe');
   });
 
@@ -265,8 +254,7 @@ describe('Brackets App', () => {
     var contestant3 = browser.findElement(by.id('contestant3'));
     expect(contestant3.getAttribute('value')).toEqual('Ringo');
 
-    var registerButton = element(by.css("button[type = 'submit']"));
-    registerButton.click();
+    helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('John,Paul,George,Ringo');
 
     helperService.clickBracketsLink();
@@ -288,8 +276,7 @@ describe('Brackets App', () => {
 
     player2.click();
 
-    var completeButton = element(by.css("button[type = 'button']"));
-    completeButton.click();
+    helperService.clickCompleteRoundButton();
 
     //Round2 :: match1 - John,Ringo - winner John
     var player1 = element.all(by.css("input[name=match1]")).get(0);
@@ -299,8 +286,7 @@ describe('Brackets App', () => {
 
     player1.click();
 
-    var completeButton = element(by.css("button[type = 'button']"));
-    completeButton.click();
+    helperService.clickCompleteRoundButton();
 
     expect(element.all(by.tagName('h4')).getText()).toContain('Winner: John');
   });
@@ -329,8 +315,7 @@ describe('Brackets App', () => {
     var contestant7 = browser.findElement(by.id('contestant7'));
     expect(contestant7.getAttribute('value')).toEqual('Vader');
 
-    var registerButton = element(by.css("button[type = 'submit']"));
-    registerButton.click();
+    helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Leia,Luke,Lando,Han,Chewy,R2D2,C3P0,Vader');
 
     helperService.clickBracketsLink();
@@ -368,8 +353,7 @@ describe('Brackets App', () => {
 
     player2.click();
 
-    var completeButton = element(by.css("button[type = 'button']"));
-    completeButton.click();
+    helperService.clickCompleteRoundButton();
 
     //Round2 :: match1 - Leia,Han - winner Han
     var player1 = element.all(by.css("input[name=match1]")).get(0);
@@ -387,8 +371,7 @@ describe('Brackets App', () => {
 
     player1.click();
 
-    var completeButton = element(by.css("button[type = 'button']"));
-    completeButton.click();
+    helperService.clickCompleteRoundButton();
 
     //Round3 :: match2 - Han,Chewy - winner Chewy
     var player1 = element.all(by.css("input[name=match1]")).get(0);
@@ -398,8 +381,7 @@ describe('Brackets App', () => {
 
     player2.click();
 
-    var completeButton = element(by.css("button[type = 'button']"));
-    completeButton.click();
+    helperService.clickCompleteRoundButton();
 
     //Let the Wookie Win!
     expect(element.all(by.tagName('h4')).getText()).toContain('Winner: Chewy');
@@ -413,8 +395,7 @@ describe('Brackets App', () => {
     contestant0.sendKeys('Sally');
     var contestant1 = browser.findElement(by.id('contestant1'));
     contestant1.sendKeys('salLy');
-    var registerButton = element(by.css("button[type = 'submit']"));
-    registerButton.click();
+    helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,salLy');
   });
 
@@ -425,8 +406,7 @@ describe('Brackets App', () => {
     contestant0.sendKeys('Sally');
     var contestant1 = browser.findElement(by.id('contestant1'));
     contestant1.sendKeys(' Sally');
-    var registerButton = element(by.css("button[type = 'submit']"));
-    registerButton.click();
+    helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally, Sally');
   });
 
@@ -437,8 +417,7 @@ describe('Brackets App', () => {
     contestant0.sendKeys(' ');
     var contestant1 = browser.findElement(by.id('contestant1'));
     contestant1.sendKeys('  ');
-    var registerButton = element(by.css("button[type = 'submit']"));
-    registerButton.click();
+    helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain(',');
   });
 
@@ -447,8 +426,7 @@ describe('Brackets App', () => {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
-    var registerButton = element(by.css("button[type = 'submit']"));
-    registerButton.click();
+    helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).getText()).toContain('Should be 2, 4, or 8 contestants');
   });
 
@@ -459,8 +437,7 @@ describe('Brackets App', () => {
     var contestant0 = browser.findElement(by.id('contestant0'));
     contestant0.sendKeys('Sally');
 
-    var registerButton = element(by.css("button[type = 'submit']"));
-    registerButton.click();
+    helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).getText()).toContain('Should be 2, 4, or 8 contestants');
   });
 
@@ -475,8 +452,7 @@ describe('Brackets App', () => {
     var contestant2 = browser.findElement(by.id('contestant2'));
     contestant2.sendKeys('Kim');
 
-    var registerButton = element(by.css("button[type = 'submit']"));
-    registerButton.click();
+    helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).getText()).toContain('Should be 2, 4, or 8 contestants');
   });
 
@@ -495,8 +471,7 @@ describe('Brackets App', () => {
     var contestant4 = browser.findElement(by.id('contestant4'));
     contestant4.sendKeys('Rick');
 
-    var registerButton = element(by.css("button[type = 'submit']"));
-    registerButton.click();
+    helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).getText()).toContain('Should be 2, 4, or 8 contestants');
   });
 
@@ -517,8 +492,7 @@ describe('Brackets App', () => {
     var contestant5 = browser.findElement(by.id('contestant5'));
     contestant5.sendKeys('Morty');
 
-    var registerButton = element(by.css("button[type = 'submit']"));
-    registerButton.click();
+    helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).getText()).toContain('Should be 2, 4, or 8 contestants');
   });
 
@@ -541,8 +515,7 @@ describe('Brackets App', () => {
     var contestant6 = browser.findElement(by.id('contestant6'));
     contestant6.sendKeys('Jerry');
 
-    var registerButton = element(by.css("button[type = 'submit']"));
-    registerButton.click();
+    helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).getText()).toContain('Should be 2, 4, or 8 contestants');
   });
 
@@ -553,8 +526,7 @@ describe('Brackets App', () => {
     contestant0.sendKeys('sally');
     var contestant1 = browser.findElement(by.id('contestant1'));
     contestant1.sendKeys('sally');
-    var registerButton = element(by.css("button[type = 'submit']"));
-    registerButton.click();
+    helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).getText()).toContain('Duplicate player');
   });
 
@@ -568,8 +540,7 @@ describe('Brackets App', () => {
     var contestant1 = browser.findElement(by.id('contestant1'));
     contestant1.sendKeys('Ben');
 
-    var registerButton = element(by.css("button[type = 'submit']"));
-    registerButton.click();
+    helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben');
 
     helperService.clickBracketsLink();
@@ -581,8 +552,7 @@ describe('Brackets App', () => {
     expect(player1.getAttribute('value')).toEqual('Sally');
     expect(player2.getAttribute('value')).toEqual('Ben');
 
-    var completeButton = element(by.css("button[type = 'button']"));
-    completeButton.click();
+    helperService.clickCompleteRoundButton();
     expect(element.all(by.tagName('h4')).getText()).toContain('Please complete all matches');
   });
 
@@ -599,8 +569,7 @@ describe('Brackets App', () => {
     var contestant3 = browser.findElement(by.id('contestant3'));
     contestant3.sendKeys('Dan');
 
-    var registerButton = element(by.css("button[type = 'submit']"));
-    registerButton.click();
+    helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan');
 
     helperService.clickBracketsLink();
@@ -620,8 +589,7 @@ describe('Brackets App', () => {
     expect(player1.getAttribute('value')).toEqual('Kim');
     expect(player2.getAttribute('value')).toEqual('Dan');
 
-    var completeButton = element(by.css("button[type = 'button']"));
-    completeButton.click();
+    helperService.clickCompleteRoundButton();
 
     expect(element.all(by.tagName('h4')).getText()).toContain('Please complete all matches');
   });
@@ -647,8 +615,7 @@ describe('Brackets App', () => {
     var contestant7 = browser.findElement(by.id('contestant7'));
     contestant7.sendKeys('Beth');
 
-    var registerButton = element(by.css("button[type = 'submit']"));
-    registerButton.click();
+    helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan,Rick,Morty,Jerry,Beth');
 
     helperService.clickBracketsLink();
@@ -684,8 +651,7 @@ describe('Brackets App', () => {
 
     player2.click();
 
-    var completeButton = element(by.css("button[type = 'button']"));
-    completeButton.click();
+    helperService.clickCompleteRoundButton();
 
     expect(element.all(by.tagName('h4')).getText()).toContain('Please complete all matches');
   });
@@ -711,8 +677,7 @@ describe('Brackets App', () => {
     var contestant7 = browser.findElement(by.id('contestant7'));
     contestant7.sendKeys('Beth');
 
-    var registerButton = element(by.css("button[type = 'submit']"));
-    registerButton.click();
+    helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan,Rick,Morty,Jerry,Beth');
 
     helperService.clickBracketsLink();
@@ -748,8 +713,7 @@ describe('Brackets App', () => {
     expect(player1.getAttribute('value')).toEqual('Jerry');
     expect(player2.getAttribute('value')).toEqual('Beth');
 
-    var completeButton = element(by.css("button[type = 'button']"));
-    completeButton.click();
+    helperService.clickCompleteRoundButton();
 
     expect(element.all(by.tagName('h4')).getText()).toContain('Please complete all matches');
   });
@@ -775,8 +739,7 @@ describe('Brackets App', () => {
     var contestant7 = browser.findElement(by.id('contestant7'));
     contestant7.sendKeys('Beth');
 
-    var registerButton = element(by.css("button[type = 'submit']"));
-    registerButton.click();
+    helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan,Rick,Morty,Jerry,Beth');
 
     helperService.clickBracketsLink();
@@ -814,8 +777,7 @@ describe('Brackets App', () => {
 
     player2.click();
 
-    var completeButton = element(by.css("button[type = 'button']"));
-    completeButton.click();
+    helperService.clickCompleteRoundButton();
 
     //Round2 :: match1 - Ben,Kim - winner Kim
     var player1 = element.all(by.css("input[name=match1]")).get(0);
@@ -831,8 +793,7 @@ describe('Brackets App', () => {
 
     player2.click();
 
-    var completeButton = element(by.css("button[type = 'button']"));
-    completeButton.click();
+    helperService.clickCompleteRoundButton();
 
     expect(element.all(by.tagName('h4')).getText()).toContain('Please complete all matches');
   });
@@ -858,8 +819,7 @@ describe('Brackets App', () => {
     var contestant7 = browser.findElement(by.id('contestant7'));
     contestant7.sendKeys('Beth');
 
-    var registerButton = element(by.css("button[type = 'submit']"));
-    registerButton.click();
+    helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan,Rick,Morty,Jerry,Beth');
 
     helperService.clickBracketsLink();
@@ -897,8 +857,7 @@ describe('Brackets App', () => {
 
     player2.click();
 
-    var completeButton = element(by.css("button[type = 'button']"));
-    completeButton.click();
+    helperService.clickCompleteRoundButton();
 
     //Round2 :: match1 - Ben,Kim - winner Kim
     var player1 = element.all(by.css("input[name=match1]")).get(0);
@@ -914,8 +873,7 @@ describe('Brackets App', () => {
     expect(player1.getAttribute('value')).toEqual('Morty');
     expect(player2.getAttribute('value')).toEqual('Beth');
 
-    var completeButton = element(by.css("button[type = 'button']"));
-    completeButton.click();
+    helperService.clickCompleteRoundButton();
 
     expect(element.all(by.tagName('h4')).getText()).toContain('Please complete all matches');
   });
@@ -941,8 +899,7 @@ describe('Brackets App', () => {
     var contestant7 = browser.findElement(by.id('contestant7'));
     contestant7.sendKeys('Beth');
 
-    var registerButton = element(by.css("button[type = 'submit']"));
-    registerButton.click();
+    helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan,Rick,Morty,Jerry,Beth');
 
     helperService.clickBracketsLink();
@@ -980,8 +937,7 @@ describe('Brackets App', () => {
 
     player2.click();
 
-    var completeButton = element(by.css("button[type = 'button']"));
-    completeButton.click();
+    helperService.clickCompleteRoundButton();
 
     //Round2 :: match1 - Ben,Kim - winner Kim
     var player1 = element.all(by.css("input[name=match1]")).get(0);
@@ -999,8 +955,7 @@ describe('Brackets App', () => {
 
     player2.click();
 
-    var completeButton = element(by.css("button[type = 'button']"));
-    completeButton.click();
+    helperService.clickCompleteRoundButton();
 
     //Round3 :: match2 - Kim,Beth - winner Kim
     var player1 = element.all(by.css("input[name=match1]")).get(0);
@@ -1008,8 +963,7 @@ describe('Brackets App', () => {
     expect(player1.getAttribute('value')).toEqual('Kim');
     expect(player2.getAttribute('value')).toEqual('Beth');
 
-    var completeButton = element(by.css("button[type = 'button']"));
-    completeButton.click();
+    helperService.clickCompleteRoundButton();
 
     expect(element.all(by.tagName('h4')).getText()).toContain('Please complete all matches');
   });

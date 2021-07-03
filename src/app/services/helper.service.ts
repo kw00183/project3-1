@@ -22,4 +22,14 @@ export class HelperService {
     var welcomeLink = browser.findElement(by.partialLinkText('Welcome'));
     welcomeLink.click();
   }
+
+  clickRegisterButton(): void {
+    var registerButton = element(by.css("button[type = 'submit']"));
+    registerButton.click();
+  }
+
+  clickCompleteRoundButton(): void {
+    var completeButton = element(by.css("button[type = 'button']"));
+    completeButton.click();
+  }
 }
