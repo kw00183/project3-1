@@ -9,6 +9,8 @@ import { RegistrationComponent } from './tournament/registration/registration.co
 import { BracketsComponent } from './tournament/brackets/brackets.component';
 import { RosterService } from './services/roster.service';
 
+import { HelperService } from './services/helper.service';
+
 @NgModule({
   declarations: [
     AppComponent,

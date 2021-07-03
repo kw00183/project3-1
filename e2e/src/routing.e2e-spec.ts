@@ -2,6 +2,7 @@ import { AppPage } from './app.po';
 import {Config, browser} from 'protractor';
 import {element, by, By, $, $$, ExpectedConditions} from 'protractor';
 import protractor = require('protractor');
+import { HelperService } from '../../src/app/services/helper.service';
 
 describe('Brackets App', () => {
   let page: AppPage;
