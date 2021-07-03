@@ -43,7 +43,7 @@ describe('Brackets App', () => {
   });
 
 //success scenarios - number of contestants 2,4,8
-  it('should navigate to the registration page, input 2 unique contestants, reflect 2 names', function() {
+  it('should choose winner from input of 2 unique contestants', function() {
     browser.get('/');
     var registrationLink = browser.findElement(by.partialLinkText('Registration'));
     registrationLink.click();
@@ -75,7 +75,7 @@ describe('Brackets App', () => {
     expect(element.all(by.tagName('h4')).getText()).toContain('Winner: Sally');
   });
 
-  it('should navigate to the registration page, input 4 unique contestants, reflect 4 names', function() {
+  it('should choose winner from input of 4 unique contestants', function() {
     browser.get('/');
     var registrationLink = browser.findElement(by.partialLinkText('Registration'));
     registrationLink.click();
@@ -131,7 +131,7 @@ describe('Brackets App', () => {
     expect(element.all(by.tagName('h4')).getText()).toContain('Winner: Dan');
   });
 
-  it('should navigate to the registration page, input 8 unique contestants, reflect 8 names', function() {
+  it('should choose winner from input of 8 unique contestants', function() {
     browser.get('/');
     var registrationLink = browser.findElement(by.partialLinkText('Registration'));
     registrationLink.click();
@@ -230,6 +230,204 @@ describe('Brackets App', () => {
     expect(element.all(by.tagName('h4')).getText()).toContain('Winner: Kim');
   });
 
+  //success scenarios - autofills
+  it('should choose winner from autofill input Zoe/Kaylee', function() {
+    browser.get('/');
+    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
+    registrationLink.click();
+    expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
+
+    var auto2Button = element.all(by.css("button[type = 'button']")).get(0);
+    auto2Button.click();
+
+    var contestant0 = browser.findElement(by.id('contestant0'));
+    expect(contestant0.getAttribute('value')).toEqual('Zoe');
+    var contestant1 = browser.findElement(by.id('contestant1'));
+    expect(contestant1.getAttribute('value')).toEqual('Kaylee');
+
+    var registerButton = element(by.css("button[type = 'submit']"));
+    registerButton.click();
+    expect(element.all(by.tagName('div')).get(2).getText()).toContain('Zoe,Kaylee');
+
+    var bracketsLink = browser.findElement(by.partialLinkText('Brackets'));
+    bracketsLink.click();
+    expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
+
+    //Round 1 :: match1 - Zoe,Kaylee - winner Zoe
+    var player1 = element.all(by.css("input[name=match1]")).get(0);
+    var player2 = element.all(by.css("input[name=match1]")).get(1);
+    expect(player1.getAttribute('value')).toEqual('Zoe');
+    expect(player2.getAttribute('value')).toEqual('Kaylee');
+
+    player1.click();
+
+    var completeButton = element(by.css("button[type = 'button']"));
+    completeButton.click();
+    expect(element.all(by.tagName('h4')).getText()).toContain('Winner: Zoe');
+  });
+
+  it('should choose winner from autofill input John/Paul/George/Ringo', function() {
+    browser.get('/');
+    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
+    registrationLink.click();
+    expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
+
+    var auto4Button = element.all(by.css("button[type = 'button']")).get(1);
+    auto4Button.click();
+
+    var contestant0 = browser.findElement(by.id('contestant0'));
+    expect(contestant0.getAttribute('value')).toEqual('John');
+    var contestant1 = browser.findElement(by.id('contestant1'));
+    expect(contestant1.getAttribute('value')).toEqual('Paul');
+    var contestant2 = browser.findElement(by.id('contestant2'));
+    expect(contestant2.getAttribute('value')).toEqual('George');
+    var contestant3 = browser.findElement(by.id('contestant3'));
+    expect(contestant3.getAttribute('value')).toEqual('Ringo');
+
+    var registerButton = element(by.css("button[type = 'submit']"));
+    registerButton.click();
+    expect(element.all(by.tagName('div')).get(2).getText()).toContain('John,Paul,George,Ringo');
+
+    var bracketsLink = browser.findElement(by.partialLinkText('Brackets'));
+    bracketsLink.click();
+    expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
+
+    //Round1 :: match1 - John,Paul - winner John
+    var player1 = element.all(by.css("input[name=match1]")).get(0);
+    var player2 = element.all(by.css("input[name=match1]")).get(1);
+    expect(player1.getAttribute('value')).toEqual('John');
+    expect(player2.getAttribute('value')).toEqual('Paul');
+
+    player1.click();
+
+    //Round 1 :: match2 - George,Ringo - winner Ringo
+    var player1 = element.all(by.css("input[name=match2]")).get(0);
+    var player2 = element.all(by.css("input[name=match2]")).get(1);
+    expect(player1.getAttribute('value')).toEqual('George');
+    expect(player2.getAttribute('value')).toEqual('Ringo');
+
+    player2.click();
+
+    var completeButton = element(by.css("button[type = 'button']"));
+    completeButton.click();
+
+    //Round2 :: match1 - John,Ringo - winner John
+    var player1 = element.all(by.css("input[name=match1]")).get(0);
+    var player2 = element.all(by.css("input[name=match1]")).get(1);
+    expect(player1.getAttribute('value')).toEqual('John');
+    expect(player2.getAttribute('value')).toEqual('Ringo');
+
+    player1.click();
+
+    var completeButton = element(by.css("button[type = 'button']"));
+    completeButton.click();
+
+    expect(element.all(by.tagName('h4')).getText()).toContain('Winner: John');
+  });
+
+  it('should choose winner from autofill input Leia/Luke/Lando/Han/Chewy/R2D2/C3P0/Vader', function() {
+    browser.get('/');
+    var registrationLink = browser.findElement(by.partialLinkText('Registration'));
+    registrationLink.click();
+    expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
+
+    var auto8Button = element.all(by.css("button[type = 'button']")).get(2);
+    auto8Button.click();
+
+    var contestant0 = browser.findElement(by.id('contestant0'));
+    expect(contestant0.getAttribute('value')).toEqual('Leia');
+    var contestant1 = browser.findElement(by.id('contestant1'));
+    expect(contestant1.getAttribute('value')).toEqual('Luke');
+    var contestant2 = browser.findElement(by.id('contestant2'));
+    expect(contestant2.getAttribute('value')).toEqual('Lando');
+    var contestant3 = browser.findElement(by.id('contestant3'));
+    expect(contestant3.getAttribute('value')).toEqual('Han');
+    var contestant4 = browser.findElement(by.id('contestant4'));
+    expect(contestant4.getAttribute('value')).toEqual('Chewy');
+    var contestant5 = browser.findElement(by.id('contestant5'));
+    expect(contestant5.getAttribute('value')).toEqual('R2D2');
+    var contestant6 = browser.findElement(by.id('contestant6'));
+    expect(contestant6.getAttribute('value')).toEqual('C3P0');
+    var contestant7 = browser.findElement(by.id('contestant7'));
+    expect(contestant7.getAttribute('value')).toEqual('Vader');
+
+    var registerButton = element(by.css("button[type = 'submit']"));
+    registerButton.click();
+    expect(element.all(by.tagName('div')).get(2).getText()).toContain('Leia,Luke,Lando,Han,Chewy,R2D2,C3P0,Vader');
+
+    var bracketsLink = browser.findElement(by.partialLinkText('Brackets'));
+    bracketsLink.click();
+    expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
+
+    //Round1 :: match1 - Leia,Luke - winner Leia
+    var player1 = element.all(by.css("input[name=match1]")).get(0);
+    var player2 = element.all(by.css("input[name=match1]")).get(1);
+    expect(player1.getAttribute('value')).toEqual('Leia');
+    expect(player2.getAttribute('value')).toEqual('Luke');
+
+    player1.click();
+
+    //Round1 :: match2 - Lando,Han - winner Han
+    var player1 = element.all(by.css("input[name=match2]")).get(0);
+    var player2 = element.all(by.css("input[name=match2]")).get(1);
+    expect(player1.getAttribute('value')).toEqual('Lando');
+    expect(player2.getAttribute('value')).toEqual('Han');
+
+    player2.click();
+
+    //Round1 :: match3 - Chewy,R2D2 - winner Chewy
+    var player1 = element.all(by.css("input[name=match3]")).get(0);
+    var player2 = element.all(by.css("input[name=match3]")).get(1);
+    expect(player1.getAttribute('value')).toEqual('Chewy');
+    expect(player2.getAttribute('value')).toEqual('R2D2');
+
+    player1.click();
+
+    //Round1 :: match4 - C3P0,Vader - winner Vader
+    var player1 = element.all(by.css("input[name=match4]")).get(0);
+    var player2 = element.all(by.css("input[name=match4]")).get(1);
+    expect(player1.getAttribute('value')).toEqual('C3P0');
+    expect(player2.getAttribute('value')).toEqual('Vader');
+
+    player2.click();
+
+    var completeButton = element(by.css("button[type = 'button']"));
+    completeButton.click();
+
+    //Round2 :: match1 - Leia,Han - winner Han
+    var player1 = element.all(by.css("input[name=match1]")).get(0);
+    var player2 = element.all(by.css("input[name=match1]")).get(1);
+    expect(player1.getAttribute('value')).toEqual('Leia');
+    expect(player2.getAttribute('value')).toEqual('Han');
+
+    player2.click();
+
+    //Round2 :: match2 - Chewy,Vader - winner Chewy
+    var player1 = element.all(by.css("input[name=match2]")).get(0);
+    var player2 = element.all(by.css("input[name=match2]")).get(1);
+    expect(player1.getAttribute('value')).toEqual('Chewy');
+    expect(player2.getAttribute('value')).toEqual('Vader');
+
+    player1.click();
+
+    var completeButton = element(by.css("button[type = 'button']"));
+    completeButton.click();
+
+    //Round3 :: match2 - Han,Chewy - winner Chewy
+    var player1 = element.all(by.css("input[name=match1]")).get(0);
+    var player2 = element.all(by.css("input[name=match1]")).get(1);
+    expect(player1.getAttribute('value')).toEqual('Han');
+    expect(player2.getAttribute('value')).toEqual('Chewy');
+
+    player2.click();
+
+    var completeButton = element(by.css("button[type = 'button']"));
+    completeButton.click();
+
+    //Let the Wookie Win!
+    expect(element.all(by.tagName('h4')).getText()).toContain('Winner: Chewy');
+  });
+
   //odd entries allowed
   it('should navigate to the registration page, input 2 identical contestants different case, reflect 2 names', function() {
     browser.get('/');
@@ -273,7 +471,7 @@ describe('Brackets App', () => {
     expect(element.all(by.tagName('div')).get(2).getText()).toContain(',');
   });
 
-  //error scenarios - bad number of contestants
+  //error scenarios - registration errors
   it('should navigate to the registration page, input 0 contestant, trigger error message', function() {
     browser.get('/');
     var registrationLink = browser.findElement(by.partialLinkText('Registration'));
