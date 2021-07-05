@@ -48,41 +48,8 @@ export class HelperService {
     auto8Button.click();
   }
 
-  assign2Contestants(): void {
-    var contestant0 = browser.findElement(by.id('contestant0'));
-    contestant0.sendKeys('Sally');
-    var contestant1 = browser.findElement(by.id('contestant1'));
-    contestant1.sendKeys('Ben');
-  }
-
-  assign4Contestants(): void {
-    var contestant0 = browser.findElement(by.id('contestant0'));
-    contestant0.sendKeys('Sally');
-    var contestant1 = browser.findElement(by.id('contestant1'));
-    contestant1.sendKeys('Ben');
-    var contestant2 = browser.findElement(by.id('contestant2'));
-    contestant2.sendKeys('Kim');
-    var contestant3 = browser.findElement(by.id('contestant3'));
-    contestant3.sendKeys('Dan');
-  }
-
-  assign8Contestants(): void {
-    var contestant0 = browser.findElement(by.id('contestant0'));
-    contestant0.sendKeys('Sally');
-    var contestant1 = browser.findElement(by.id('contestant1'));
-    contestant1.sendKeys('Ben');
-    var contestant2 = browser.findElement(by.id('contestant2'));
-    contestant2.sendKeys('Kim');
-    var contestant3 = browser.findElement(by.id('contestant3'));
-    contestant3.sendKeys('Dan');
-    var contestant4 = browser.findElement(by.id('contestant4'));
-    contestant4.sendKeys('Rick');
-    var contestant5 = browser.findElement(by.id('contestant5'));
-    contestant5.sendKeys('Morty');
-    var contestant6 = browser.findElement(by.id('contestant6'));
-    contestant6.sendKeys('Jerry');
-    var contestant7 = browser.findElement(by.id('contestant7'));
-    contestant7.sendKeys('Beth');
+  getContestant(fieldNumber: number) {
+    return browser.findElement(by.id("contestant" + fieldNumber));
   }
 
   getPlayer1(matchNumber: number) {

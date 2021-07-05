@@ -65,7 +65,8 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
-    helperService.assign2Contestants();
+    helperService.getContestant(0).sendKeys('Sally');
+    helperService.getContestant(1).sendKeys('Ben');
 
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben');
@@ -90,10 +91,8 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
-    var contestant1 = browser.findElement(by.id('contestant1'));
-    contestant1.sendKeys('Sally');
-    var contestant7 = browser.findElement(by.id('contestant7'));
-    contestant7.sendKeys('Ben');
+    helperService.getContestant(1).sendKeys('Sally');
+    helperService.getContestant(7).sendKeys('Ben');
 
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben');
@@ -118,7 +117,10 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
-    helperService.assign4Contestants();
+    helperService.getContestant(0).sendKeys('Sally');
+    helperService.getContestant(1).sendKeys('Ben');
+    helperService.getContestant(2).sendKeys('Kim');
+    helperService.getContestant(3).sendKeys('Dan');
 
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan');
@@ -161,14 +163,10 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
-    var contestant0 = browser.findElement(by.id('contestant0'));
-    contestant0.sendKeys('Sally');
-    var contestant3 = browser.findElement(by.id('contestant3'));
-    contestant3.sendKeys('Ben');
-    var contestant5 = browser.findElement(by.id('contestant5'));
-    contestant5.sendKeys('Kim');
-    var contestant6 = browser.findElement(by.id('contestant6'));
-    contestant6.sendKeys('Dan');
+    helperService.getContestant(0).sendKeys('Sally');
+    helperService.getContestant(3).sendKeys('Ben');
+    helperService.getContestant(5).sendKeys('Kim');
+    helperService.getContestant(6).sendKeys('Dan');
 
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan');
@@ -211,7 +209,14 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
-    helperService.assign8Contestants();
+    helperService.getContestant(0).sendKeys('Sally');
+    helperService.getContestant(1).sendKeys('Ben');
+    helperService.getContestant(2).sendKeys('Kim');
+    helperService.getContestant(3).sendKeys('Dan');
+    helperService.getContestant(4).sendKeys('Rick');
+    helperService.getContestant(5).sendKeys('Morty');
+    helperService.getContestant(6).sendKeys('Jerry');
+    helperService.getContestant(7).sendKeys('Beth');
 
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan,Rick,Morty,Jerry,Beth');
@@ -299,10 +304,8 @@ describe('Brackets App - Success Scenarios autofills', () => {
 
     helperService.clickAutofill2Button();
 
-    var contestant0 = browser.findElement(by.id('contestant0'));
-    expect(contestant0.getAttribute('value')).toEqual('Zoe');
-    var contestant1 = browser.findElement(by.id('contestant1'));
-    expect(contestant1.getAttribute('value')).toEqual('Kaylee');
+    expect(helperService.getContestant(0).getAttribute('value')).toEqual('Zoe');
+    expect(helperService.getContestant(1).getAttribute('value')).toEqual('Kaylee');
 
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Zoe,Kaylee');
@@ -329,14 +332,10 @@ describe('Brackets App - Success Scenarios autofills', () => {
 
     helperService.clickAutofill4Button();
 
-    var contestant0 = browser.findElement(by.id('contestant0'));
-    expect(contestant0.getAttribute('value')).toEqual('John');
-    var contestant1 = browser.findElement(by.id('contestant1'));
-    expect(contestant1.getAttribute('value')).toEqual('Paul');
-    var contestant2 = browser.findElement(by.id('contestant2'));
-    expect(contestant2.getAttribute('value')).toEqual('George');
-    var contestant3 = browser.findElement(by.id('contestant3'));
-    expect(contestant3.getAttribute('value')).toEqual('Ringo');
+    expect(helperService.getContestant(0).getAttribute('value')).toEqual('John');
+    expect(helperService.getContestant(1).getAttribute('value')).toEqual('Paul');
+    expect(helperService.getContestant(2).getAttribute('value')).toEqual('George');
+    expect(helperService.getContestant(3).getAttribute('value')).toEqual('Ringo');
 
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('John,Paul,George,Ringo');
@@ -381,22 +380,14 @@ describe('Brackets App - Success Scenarios autofills', () => {
 
     helperService.clickAutofill8Button();
 
-    var contestant0 = browser.findElement(by.id('contestant0'));
-    expect(contestant0.getAttribute('value')).toEqual('Leia');
-    var contestant1 = browser.findElement(by.id('contestant1'));
-    expect(contestant1.getAttribute('value')).toEqual('Luke');
-    var contestant2 = browser.findElement(by.id('contestant2'));
-    expect(contestant2.getAttribute('value')).toEqual('Lando');
-    var contestant3 = browser.findElement(by.id('contestant3'));
-    expect(contestant3.getAttribute('value')).toEqual('Han');
-    var contestant4 = browser.findElement(by.id('contestant4'));
-    expect(contestant4.getAttribute('value')).toEqual('Chewy');
-    var contestant5 = browser.findElement(by.id('contestant5'));
-    expect(contestant5.getAttribute('value')).toEqual('R2D2');
-    var contestant6 = browser.findElement(by.id('contestant6'));
-    expect(contestant6.getAttribute('value')).toEqual('C3P0');
-    var contestant7 = browser.findElement(by.id('contestant7'));
-    expect(contestant7.getAttribute('value')).toEqual('Vader');
+    expect(helperService.getContestant(0).getAttribute('value')).toEqual('Leia');
+    expect(helperService.getContestant(1).getAttribute('value')).toEqual('Luke');
+    expect(helperService.getContestant(2).getAttribute('value')).toEqual('Lando');
+    expect(helperService.getContestant(3).getAttribute('value')).toEqual('Han');
+    expect(helperService.getContestant(4).getAttribute('value')).toEqual('Chewy');
+    expect(helperService.getContestant(5).getAttribute('value')).toEqual('R2D2');
+    expect(helperService.getContestant(6).getAttribute('value')).toEqual('C3P0');
+    expect(helperService.getContestant(7).getAttribute('value')).toEqual('Vader');
 
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Leia,Luke,Lando,Han,Chewy,R2D2,C3P0,Vader');
@@ -477,10 +468,8 @@ describe('Brackets App - Success Scenarios allow odd cases and ghost values', ()
   it('should navigate to the registration page, input 2 identical contestants different case, reflect 2 names', function() {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
-    var contestant0 = browser.findElement(by.id('contestant0'));
-    contestant0.sendKeys('Sally');
-    var contestant1 = browser.findElement(by.id('contestant1'));
-    contestant1.sendKeys('salLy');
+    helperService.getContestant(0).sendKeys('Sally');
+    helperService.getContestant(1).sendKeys('salLy');
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,salLy');
   });
@@ -488,10 +477,8 @@ describe('Brackets App - Success Scenarios allow odd cases and ghost values', ()
   it('should navigate to the registration page, input 2 identical contestants extra space on 1, reflect 2 names', function() {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
-    var contestant0 = browser.findElement(by.id('contestant0'));
-    contestant0.sendKeys('Sally');
-    var contestant1 = browser.findElement(by.id('contestant1'));
-    contestant1.sendKeys(' Sally');
+    helperService.getContestant(0).sendKeys('Sally');
+    helperService.getContestant(1).sendKeys(' Sally');
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally, Sally');
   });
@@ -499,10 +486,8 @@ describe('Brackets App - Success Scenarios allow odd cases and ghost values', ()
   it('should navigate to the registration page, input 2 unique contestants only spaces, reflect 2 ghost names', function() {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
-    var contestant0 = browser.findElement(by.id('contestant0'));
-    contestant0.sendKeys(' ');
-    var contestant1 = browser.findElement(by.id('contestant1'));
-    contestant1.sendKeys('  ');
+    helperService.getContestant(0).sendKeys(' ');
+    helperService.getContestant(1).sendKeys('  ');
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain(',');
   });
@@ -528,8 +513,7 @@ describe('Brackets App - Errors Scenarios - Registration page', () => {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
-    var contestant0 = browser.findElement(by.id('contestant0'));
-    contestant0.sendKeys('Sally');
+    helperService.getContestant(0).sendKeys('Sally');
 
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).getText()).toContain('Should be 2, 4, or 8 contestants');
@@ -539,12 +523,9 @@ describe('Brackets App - Errors Scenarios - Registration page', () => {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
-    var contestant0 = browser.findElement(by.id('contestant0'));
-    contestant0.sendKeys('Sally');
-    var contestant1 = browser.findElement(by.id('contestant1'));
-    contestant1.sendKeys('Ben');
-    var contestant2 = browser.findElement(by.id('contestant2'));
-    contestant2.sendKeys('Kim');
+    helperService.getContestant(0).sendKeys('Sally');
+    helperService.getContestant(1).sendKeys('Ben');
+    helperService.getContestant(2).sendKeys('Kim');
 
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).getText()).toContain('Should be 2, 4, or 8 contestants');
@@ -554,16 +535,11 @@ describe('Brackets App - Errors Scenarios - Registration page', () => {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
-    var contestant0 = browser.findElement(by.id('contestant0'));
-    contestant0.sendKeys('Sally');
-    var contestant1 = browser.findElement(by.id('contestant1'));
-    contestant1.sendKeys('Ben');
-    var contestant2 = browser.findElement(by.id('contestant2'));
-    contestant2.sendKeys('Kim');
-    var contestant3 = browser.findElement(by.id('contestant3'));
-    contestant3.sendKeys('Dan');
-    var contestant4 = browser.findElement(by.id('contestant4'));
-    contestant4.sendKeys('Rick');
+    helperService.getContestant(0).sendKeys('Sally');
+    helperService.getContestant(1).sendKeys('Ben');
+    helperService.getContestant(2).sendKeys('Kim');
+    helperService.getContestant(3).sendKeys('Dan');
+    helperService.getContestant(4).sendKeys('Rick');
 
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).getText()).toContain('Should be 2, 4, or 8 contestants');
@@ -573,18 +549,12 @@ describe('Brackets App - Errors Scenarios - Registration page', () => {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
-    var contestant0 = browser.findElement(by.id('contestant0'));
-    contestant0.sendKeys('Sally');
-    var contestant1 = browser.findElement(by.id('contestant1'));
-    contestant1.sendKeys('Ben');
-    var contestant2 = browser.findElement(by.id('contestant2'));
-    contestant2.sendKeys('Kim');
-    var contestant3 = browser.findElement(by.id('contestant3'));
-    contestant3.sendKeys('Dan');
-    var contestant4 = browser.findElement(by.id('contestant4'));
-    contestant4.sendKeys('Rick');
-    var contestant5 = browser.findElement(by.id('contestant5'));
-    contestant5.sendKeys('Morty');
+    helperService.getContestant(0).sendKeys('Sally');
+    helperService.getContestant(1).sendKeys('Ben');
+    helperService.getContestant(2).sendKeys('Kim');
+    helperService.getContestant(3).sendKeys('Dan');
+    helperService.getContestant(4).sendKeys('Rick');
+    helperService.getContestant(5).sendKeys('Morty');
 
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).getText()).toContain('Should be 2, 4, or 8 contestants');
@@ -594,20 +564,13 @@ describe('Brackets App - Errors Scenarios - Registration page', () => {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
-    var contestant0 = browser.findElement(by.id('contestant0'));
-    contestant0.sendKeys('Sally');
-    var contestant1 = browser.findElement(by.id('contestant1'));
-    contestant1.sendKeys('Ben');
-    var contestant2 = browser.findElement(by.id('contestant2'));
-    contestant2.sendKeys('Kim');
-    var contestant3 = browser.findElement(by.id('contestant3'));
-    contestant3.sendKeys('Dan');
-    var contestant4 = browser.findElement(by.id('contestant4'));
-    contestant4.sendKeys('Rick');
-    var contestant5 = browser.findElement(by.id('contestant5'));
-    contestant5.sendKeys('Morty');
-    var contestant6 = browser.findElement(by.id('contestant6'));
-    contestant6.sendKeys('Jerry');
+    helperService.getContestant(0).sendKeys('Sally');
+    helperService.getContestant(1).sendKeys('Ben');
+    helperService.getContestant(2).sendKeys('Kim');
+    helperService.getContestant(3).sendKeys('Dan');
+    helperService.getContestant(4).sendKeys('Rick');
+    helperService.getContestant(5).sendKeys('Morty');
+    helperService.getContestant(6).sendKeys('Jerry');
 
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).getText()).toContain('Should be 2, 4, or 8 contestants');
@@ -616,10 +579,8 @@ describe('Brackets App - Errors Scenarios - Registration page', () => {
   it('should navigate to the registration page, input 2 identical contestants same case, trigger error message', function() {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
-    var contestant0 = browser.findElement(by.id('contestant0'));
-    contestant0.sendKeys('sally');
-    var contestant1 = browser.findElement(by.id('contestant1'));
-    contestant1.sendKeys('sally');
+    helperService.getContestant(0).sendKeys('sally');
+    helperService.getContestant(1).sendKeys('sally');
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).getText()).toContain('Duplicate player');
   });
@@ -637,7 +598,8 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
-    helperService.assign2Contestants();
+    helperService.getContestant(0).sendKeys('Sally');
+    helperService.getContestant(1).sendKeys('Ben');
 
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben');
@@ -662,7 +624,10 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
-    helperService.assign4Contestants();
+    helperService.getContestant(0).sendKeys('Sally');
+    helperService.getContestant(1).sendKeys('Ben');
+    helperService.getContestant(2).sendKeys('Kim');
+    helperService.getContestant(3).sendKeys('Dan');
 
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan');
@@ -694,7 +659,14 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
-    helperService.assign8Contestants();
+    helperService.getContestant(0).sendKeys('Sally');
+    helperService.getContestant(1).sendKeys('Ben');
+    helperService.getContestant(2).sendKeys('Kim');
+    helperService.getContestant(3).sendKeys('Dan');
+    helperService.getContestant(4).sendKeys('Rick');
+    helperService.getContestant(5).sendKeys('Morty');
+    helperService.getContestant(6).sendKeys('Jerry');
+    helperService.getContestant(7).sendKeys('Beth');
 
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan,Rick,Morty,Jerry,Beth');
@@ -738,7 +710,14 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
-    helperService.assign8Contestants();
+    helperService.getContestant(0).sendKeys('Sally');
+    helperService.getContestant(1).sendKeys('Ben');
+    helperService.getContestant(2).sendKeys('Kim');
+    helperService.getContestant(3).sendKeys('Dan');
+    helperService.getContestant(4).sendKeys('Rick');
+    helperService.getContestant(5).sendKeys('Morty');
+    helperService.getContestant(6).sendKeys('Jerry');
+    helperService.getContestant(7).sendKeys('Beth');
 
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan,Rick,Morty,Jerry,Beth');
@@ -782,7 +761,14 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
-    helperService.assign8Contestants();
+    helperService.getContestant(0).sendKeys('Sally');
+    helperService.getContestant(1).sendKeys('Ben');
+    helperService.getContestant(2).sendKeys('Kim');
+    helperService.getContestant(3).sendKeys('Dan');
+    helperService.getContestant(4).sendKeys('Rick');
+    helperService.getContestant(5).sendKeys('Morty');
+    helperService.getContestant(6).sendKeys('Jerry');
+    helperService.getContestant(7).sendKeys('Beth');
 
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan,Rick,Morty,Jerry,Beth');
@@ -843,7 +829,14 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
-    helperService.assign8Contestants();
+    helperService.getContestant(0).sendKeys('Sally');
+    helperService.getContestant(1).sendKeys('Ben');
+    helperService.getContestant(2).sendKeys('Kim');
+    helperService.getContestant(3).sendKeys('Dan');
+    helperService.getContestant(4).sendKeys('Rick');
+    helperService.getContestant(5).sendKeys('Morty');
+    helperService.getContestant(6).sendKeys('Jerry');
+    helperService.getContestant(7).sendKeys('Beth');
 
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan,Rick,Morty,Jerry,Beth');
@@ -904,7 +897,14 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
-    helperService.assign8Contestants();
+    helperService.getContestant(0).sendKeys('Sally');
+    helperService.getContestant(1).sendKeys('Ben');
+    helperService.getContestant(2).sendKeys('Kim');
+    helperService.getContestant(3).sendKeys('Dan');
+    helperService.getContestant(4).sendKeys('Rick');
+    helperService.getContestant(5).sendKeys('Morty');
+    helperService.getContestant(6).sendKeys('Jerry');
+    helperService.getContestant(7).sendKeys('Beth');
 
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan,Rick,Morty,Jerry,Beth');
