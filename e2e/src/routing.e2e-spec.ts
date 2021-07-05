@@ -61,7 +61,7 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
   });
 
-  it('should choose winner from input of 2 unique contestants (fields 0-1)', function() {
+  it('should choose player 1 as winner from input of 2 unique contestants (fields 0-1)', function() {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
 
@@ -85,6 +85,32 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
 
     helperService.clickCompleteRoundButton();
     expect(element.all(by.tagName('h4')).getText()).toContain('Winner: Sally');
+  });
+
+  it('should choose player 2 as winner from input of 2 unique contestants (fields 0-1)', function() {
+    helperService.clickRegistrationLink();
+    expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
+
+    helperService.getContestant(0).sendKeys('Sally');
+    helperService.getContestant(1).sendKeys('Ben');
+
+    helperService.clickRegisterButton();
+    expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben');
+
+    helperService.clickBracketsLink();
+    expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
+
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
+
+    var matchNumber = 1; //round 1
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Sally');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Ben');
+    helperService.getPlayer2(matchNumber).click(); //winner Ben
+
+    helperService.clickCompleteRoundButton();
+    expect(element.all(by.tagName('h4')).getText()).toContain('Winner: Ben');
   });
 
   it('should choose winner from input of 2 unique contestants (random fields)', function() {
@@ -205,6 +231,98 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
     expect(element.all(by.tagName('h4')).getText()).toContain('Winner: Dan');
   });
 
+  it('should choose winner from input of 4 unique contestants (all winners = player1)', function() {
+    helperService.clickRegistrationLink();
+    expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
+
+    helperService.getContestant(0).sendKeys('Sally');
+    helperService.getContestant(1).sendKeys('Ben');
+    helperService.getContestant(2).sendKeys('Kim');
+    helperService.getContestant(3).sendKeys('Dan');
+
+    helperService.clickRegisterButton();
+    expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan');
+
+    helperService.clickBracketsLink();
+    expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
+
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 2');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
+
+    var matchNumber = 1; //round 1
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Sally');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Ben');
+    helperService.getPlayer1(matchNumber).click(); // winner Sally
+
+    var matchNumber = 2;
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Kim');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Dan');
+    helperService.getPlayer1(matchNumber).click(); //winner Kim
+
+    helperService.clickCompleteRoundButton();
+
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 2');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
+
+    var matchNumber = 1; //round 2
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Sally');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Kim');
+    helperService.getPlayer1(matchNumber).click(); //winner Sally
+
+    helperService.clickCompleteRoundButton();
+
+    expect(element.all(by.tagName('h4')).getText()).toContain('Winner: Sally');
+  });
+
+  it('should choose winner from input of 4 unique contestants (all winners = player2)', function() {
+    helperService.clickRegistrationLink();
+    expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
+
+    helperService.getContestant(0).sendKeys('Sally');
+    helperService.getContestant(1).sendKeys('Ben');
+    helperService.getContestant(2).sendKeys('Kim');
+    helperService.getContestant(3).sendKeys('Dan');
+
+    helperService.clickRegisterButton();
+    expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan');
+
+    helperService.clickBracketsLink();
+    expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
+
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 2');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
+
+    var matchNumber = 1; //round 1
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Sally');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Ben');
+    helperService.getPlayer2(matchNumber).click(); // winner Ben
+
+    var matchNumber = 2;
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Kim');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Dan');
+    helperService.getPlayer2(matchNumber).click(); //winner Dan
+
+    helperService.clickCompleteRoundButton();
+
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 2');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
+
+    var matchNumber = 1; //round 2
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Ben');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Dan');
+    helperService.getPlayer2(matchNumber).click(); //winner Dan
+
+    helperService.clickCompleteRoundButton();
+
+    expect(element.all(by.tagName('h4')).getText()).toContain('Winner: Dan');
+  });
+
   it('should choose winner from input of 8 unique contestants', function() {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
@@ -282,6 +400,164 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
     helperService.clickCompleteRoundButton();
 
     expect(element.all(by.tagName('h4')).getText()).toContain('Winner: Kim');
+  });
+
+  it('should choose winner from input of 8 unique contestants (all winners = player1)', function() {
+    helperService.clickRegistrationLink();
+    expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
+
+    helperService.getContestant(0).sendKeys('Sally');
+    helperService.getContestant(1).sendKeys('Ben');
+    helperService.getContestant(2).sendKeys('Kim');
+    helperService.getContestant(3).sendKeys('Dan');
+    helperService.getContestant(4).sendKeys('Rick');
+    helperService.getContestant(5).sendKeys('Morty');
+    helperService.getContestant(6).sendKeys('Jerry');
+    helperService.getContestant(7).sendKeys('Beth');
+
+    helperService.clickRegisterButton();
+    expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan,Rick,Morty,Jerry,Beth');
+
+    helperService.clickBracketsLink();
+    expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
+
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 2');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 3');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 4');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
+
+    var matchNumber = 1; //round 1
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Sally');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Ben');
+    helperService.getPlayer1(matchNumber).click(); //winner Sally
+
+    var matchNumber = 2;
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Kim');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Dan');
+    helperService.getPlayer1(matchNumber).click(); //winner Kim
+
+    var matchNumber = 3;
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Rick');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Morty');
+    helperService.getPlayer1(matchNumber).click(); //winner Rick
+
+    var matchNumber = 4;
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Jerry');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Beth');
+    helperService.getPlayer1(matchNumber).click(); //winner Jerry
+
+    helperService.clickCompleteRoundButton();
+
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 2');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 2');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
+
+    var matchNumber = 1; //round 2
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Sally');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Kim');
+    helperService.getPlayer1(matchNumber).click(); //winner Sally
+
+    var matchNumber = 2;
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Rick');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Jerry');
+    helperService.getPlayer1(matchNumber).click(); //winner Rick
+
+    helperService.clickCompleteRoundButton();
+
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 3');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
+
+    var matchNumber = 1; //round 3
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Sally');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Rick');
+    helperService.getPlayer1(matchNumber).click(); //winner Sally
+
+    helperService.clickCompleteRoundButton();
+
+    expect(element.all(by.tagName('h4')).getText()).toContain('Winner: Sally');
+  });
+
+  it('should choose winner from input of 8 unique contestants (all winners = player2)', function() {
+    helperService.clickRegistrationLink();
+    expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
+
+    helperService.getContestant(0).sendKeys('Sally');
+    helperService.getContestant(1).sendKeys('Ben');
+    helperService.getContestant(2).sendKeys('Kim');
+    helperService.getContestant(3).sendKeys('Dan');
+    helperService.getContestant(4).sendKeys('Rick');
+    helperService.getContestant(5).sendKeys('Morty');
+    helperService.getContestant(6).sendKeys('Jerry');
+    helperService.getContestant(7).sendKeys('Beth');
+
+    helperService.clickRegisterButton();
+    expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,Ben,Kim,Dan,Rick,Morty,Jerry,Beth');
+
+    helperService.clickBracketsLink();
+    expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
+
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 2');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 3');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 4');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
+
+    var matchNumber = 1; //round 1
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Sally');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Ben');
+    helperService.getPlayer2(matchNumber).click(); //winner Ben
+
+    var matchNumber = 2;
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Kim');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Dan');
+    helperService.getPlayer2(matchNumber).click(); //winner Dan
+
+    var matchNumber = 3;
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Rick');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Morty');
+    helperService.getPlayer2(matchNumber).click(); //winner Morty
+
+    var matchNumber = 4;
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Jerry');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Beth');
+    helperService.getPlayer2(matchNumber).click(); //winner Beth
+
+    helperService.clickCompleteRoundButton();
+
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 2');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 2');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
+
+    var matchNumber = 1; //round 2
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Ben');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Dan');
+    helperService.getPlayer2(matchNumber).click(); //winner Dan
+
+    var matchNumber = 2;
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Morty');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Beth');
+    helperService.getPlayer2(matchNumber).click(); //winner Beth
+
+    helperService.clickCompleteRoundButton();
+
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 3');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
+
+    var matchNumber = 1; //round 3
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Dan');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Beth');
+    helperService.getPlayer2(matchNumber).click(); //winner Beth
+
+    helperService.clickCompleteRoundButton();
+
+    expect(element.all(by.tagName('h4')).getText()).toContain('Winner: Beth');
   });
 });
 
@@ -465,31 +741,82 @@ describe('Brackets App - Success Scenarios allow odd cases and ghost values', ()
     helperService = new HelperService();
   });
 
-  it('should navigate to the registration page, input 2 identical contestants different case, reflect 2 names', function() {
+  it('should allow input 2 identical contestants different case', function() {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
+
     helperService.getContestant(0).sendKeys('Sally');
     helperService.getContestant(1).sendKeys('salLy');
+
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally,salLy');
+
+    helperService.clickBracketsLink();
+    expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
+
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+
+    var matchNumber = 1; //round 1
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Sally');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('salLy');
+    helperService.getPlayer2(matchNumber).click(); //winner salLy
+
+    helperService.clickCompleteRoundButton();
+
+    expect(element.all(by.tagName('h4')).getText()).toContain('Winner: salLy');
   });
 
-  it('should navigate to the registration page, input 2 identical contestants extra space on 1, reflect 2 names', function() {
+  it('should allow input 2 identical contestants extra leading space on 1, players reflect entries, winner name trimmed (ie same as entry without leading space)', function() {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
+
     helperService.getContestant(0).sendKeys('Sally');
     helperService.getContestant(1).sendKeys(' Sally');
+
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain('Sally, Sally');
+
+    helperService.clickBracketsLink();
+    expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
+
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+
+    var matchNumber = 1; //round 1
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Sally');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual(' Sally');
+    helperService.getPlayer2(matchNumber).click(); //winner Sally (extra leading space)
+
+    helperService.clickCompleteRoundButton();
+
+    expect(element.all(by.tagName('h4')).getText()).toContain('Winner: Sally');
   });
 
-  it('should navigate to the registration page, input 2 unique contestants only spaces, reflect 2 ghost names', function() {
+  it('should allow input 2 unique contestants only spaces, players reflect entries, winner name trimmed (ie no winner/ghost)', function() {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
+
     helperService.getContestant(0).sendKeys(' ');
     helperService.getContestant(1).sendKeys('  ');
+
     helperService.clickRegisterButton();
     expect(element.all(by.tagName('div')).get(2).getText()).toContain(',');
+
+    helperService.clickBracketsLink();
+    expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
+
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+
+    var matchNumber = 1; //round 1
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual(' ');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('  ');
+    helperService.getPlayer2(matchNumber).click(); //winner two spaces
+
+    helperService.clickCompleteRoundButton();
+
+    expect(element.all(by.tagName('h4')).getText()).toContain('Winner:');
   });
 });
 
