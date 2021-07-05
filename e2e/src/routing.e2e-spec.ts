@@ -19,18 +19,30 @@ describe('Brackets App - Routing Tests', () => {
   it('should navigate to the registration page with h2 tag that contains text Register Players', function() {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
+    expect(element(by.css("button[type = 'submit']")).getText()).toEqual('Register Contestants');
+    expect(element.all(by.css("button[type = 'button']")).getText()).toContain('Autofill 2 Players');
+    expect(element.all(by.css("button[type = 'button']")).getText()).toContain('Autofill 4 Players');
+    expect(element.all(by.css("button[type = 'button']")).getText()).toContain('Autofill 8 Players');
   });
 
   it('should navigate to the brackets page with h2 tag that contains text Brackets', function() {
     helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 1');
+    expect(element(by.css("button[type = 'button']")).getText()).toContain('Complete Round');
   });
 
   it('should navigate to the welcome page via the registration and the brackets page', function() {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
+    expect(element(by.css("button[type = 'submit']")).getText()).toEqual('Register Contestants');
+    expect(element.all(by.css("button[type = 'button']")).getText()).toContain('Autofill 2 Players');
+    expect(element.all(by.css("button[type = 'button']")).getText()).toContain('Autofill 4 Players');
+    expect(element.all(by.css("button[type = 'button']")).getText()).toContain('Autofill 8 Players');
     helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 1');
+    expect(element(by.css("button[type = 'button']")).getText()).toContain('Complete Round');
     helperService.clickWelcomeLink();
     expect(element(by.id('subpageTitle')).getText()).toEqual('Brackets App');
   });
@@ -66,11 +78,9 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
     expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 1
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Sally');
-    expect(player2.getAttribute('value')).toEqual('Ben');
-    player1.click(); //winner Sally
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Sally');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Ben');
+    helperService.getPlayer1(matchNumber).click(); //winner Sally
 
     helperService.clickCompleteRoundButton();
     expect(element.all(by.tagName('h4')).getText()).toContain('Winner: Sally');
@@ -96,11 +106,9 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
     expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 1
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Sally');
-    expect(player2.getAttribute('value')).toEqual('Ben');
-    player1.click(); //winner Sally
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Sally');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Ben');
+    helperService.getPlayer1(matchNumber).click(); //winner Sally
 
     helperService.clickCompleteRoundButton();
     expect(element.all(by.tagName('h4')).getText()).toContain('Winner: Sally');
@@ -124,18 +132,14 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
     expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 1
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Sally');
-    expect(player2.getAttribute('value')).toEqual('Ben');
-    player1.click(); // winner Sally
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Sally');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Ben');
+    helperService.getPlayer1(matchNumber).click(); // winner Sally
 
     var matchNumber = 2;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Kim');
-    expect(player2.getAttribute('value')).toEqual('Dan');
-    player2.click(); //winner Dan
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Kim');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Dan');
+    helperService.getPlayer2(matchNumber).click(); //winner Dan
 
     helperService.clickCompleteRoundButton();
 
@@ -144,11 +148,9 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
     expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 2
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Sally');
-    expect(player2.getAttribute('value')).toEqual('Dan');
-    player2.click(); //winner Dan
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Sally');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Dan');
+    helperService.getPlayer2(matchNumber).click(); //winner Dan
 
     helperService.clickCompleteRoundButton();
 
@@ -180,18 +182,14 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
     expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 1
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Sally');
-    expect(player2.getAttribute('value')).toEqual('Ben');
-    player1.click(); // winner Sally
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Sally');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Ben');
+    helperService.getPlayer1(matchNumber).click(); // winner Sally
 
     var matchNumber = 2;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Kim');
-    expect(player2.getAttribute('value')).toEqual('Dan');
-    player2.click(); //winner Dan
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Kim');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Dan');
+    helperService.getPlayer2(matchNumber).click(); //winner Dan
 
     helperService.clickCompleteRoundButton();
 
@@ -200,11 +198,9 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
     expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 2
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Sally');
-    expect(player2.getAttribute('value')).toEqual('Dan');
-    player2.click(); //winner Dan
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Sally');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Dan');
+    helperService.getPlayer2(matchNumber).click(); //winner Dan
 
     helperService.clickCompleteRoundButton();
 
@@ -231,32 +227,24 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
     expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 1
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Sally');
-    expect(player2.getAttribute('value')).toEqual('Ben');
-    player2.click(); //winner Ben
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Sally');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Ben');
+    helperService.getPlayer2(matchNumber).click(); //winner Ben
 
     var matchNumber = 2;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Kim');
-    expect(player2.getAttribute('value')).toEqual('Dan');
-    player1.click(); //winner Kim
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Kim');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Dan');
+    helperService.getPlayer1(matchNumber).click(); //winner Kim
 
     var matchNumber = 3;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Rick');
-    expect(player2.getAttribute('value')).toEqual('Morty');
-    player2.click(); //winner Morty
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Rick');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Morty');
+    helperService.getPlayer2(matchNumber).click(); //winner Morty
 
     var matchNumber = 4;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Jerry');
-    expect(player2.getAttribute('value')).toEqual('Beth');
-    player2.click(); //winner Beth
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Jerry');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Beth');
+    helperService.getPlayer2(matchNumber).click(); //winner Beth
 
     helperService.clickCompleteRoundButton();
 
@@ -266,18 +254,14 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
     expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 2
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Ben');
-    expect(player2.getAttribute('value')).toEqual('Kim');
-    player2.click(); //winner Kim
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Ben');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Kim');
+    helperService.getPlayer2(matchNumber).click(); //winner Kim
 
     var matchNumber = 2;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Morty');
-    expect(player2.getAttribute('value')).toEqual('Beth');
-    player2.click(); //winner Beth
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Morty');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Beth');
+    helperService.getPlayer2(matchNumber).click(); //winner Beth
 
     helperService.clickCompleteRoundButton();
 
@@ -286,11 +270,9 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
     expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 3
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Kim');
-    expect(player2.getAttribute('value')).toEqual('Beth');
-    player1.click(); //winner Kim
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Kim');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Beth');
+    helperService.getPlayer1(matchNumber).click(); //winner Kim
 
     helperService.clickCompleteRoundButton();
 
@@ -333,11 +315,9 @@ describe('Brackets App - Success Scenarios autofills', () => {
     expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 1
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Zoe');
-    expect(player2.getAttribute('value')).toEqual('Kaylee');
-    player1.click(); //winner Zoe
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Zoe');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Kaylee');
+    helperService.getPlayer1(matchNumber).click(); //winner Zoe
 
     helperService.clickCompleteRoundButton();
     expect(element.all(by.tagName('h4')).getText()).toContain('Winner: Zoe');
@@ -370,18 +350,14 @@ describe('Brackets App - Success Scenarios autofills', () => {
     expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 1
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('John');
-    expect(player2.getAttribute('value')).toEqual('Paul');
-    player1.click(); //winner John
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('John');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Paul');
+    helperService.getPlayer1(matchNumber).click(); //winner John
 
     var matchNumber = 2;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('George');
-    expect(player2.getAttribute('value')).toEqual('Ringo');
-    player2.click(); //winner Ringo
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('George');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Ringo');
+    helperService.getPlayer2(matchNumber).click(); //winner Ringo
 
     helperService.clickCompleteRoundButton();
 
@@ -390,11 +366,9 @@ describe('Brackets App - Success Scenarios autofills', () => {
     expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 2
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('John');
-    expect(player2.getAttribute('value')).toEqual('Ringo');
-    player1.click(); //winner John
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('John');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Ringo');
+    helperService.getPlayer1(matchNumber).click(); //winner John
 
     helperService.clickCompleteRoundButton();
 
@@ -438,32 +412,24 @@ describe('Brackets App - Success Scenarios autofills', () => {
     expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 1
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Leia');
-    expect(player2.getAttribute('value')).toEqual('Luke');
-    player1.click(); //winner Leia
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Leia');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Luke');
+    helperService.getPlayer1(matchNumber).click(); //winner Leia
 
     var matchNumber = 2;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Lando');
-    expect(player2.getAttribute('value')).toEqual('Han');
-    player2.click(); //winner Han
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Lando');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Han');
+    helperService.getPlayer2(matchNumber).click(); //winner Han
 
     var matchNumber = 3;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Chewy');
-    expect(player2.getAttribute('value')).toEqual('R2D2');
-    player1.click(); //winner Chewy
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Chewy');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('R2D2');
+    helperService.getPlayer1(matchNumber).click(); //winner Chewy
 
     var matchNumber = 4;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('C3P0');
-    expect(player2.getAttribute('value')).toEqual('Vader');
-    player2.click(); //winner Vader
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('C3P0');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Vader');
+    helperService.getPlayer2(matchNumber).click(); //winner Vader
 
     helperService.clickCompleteRoundButton();
 
@@ -473,18 +439,14 @@ describe('Brackets App - Success Scenarios autofills', () => {
     expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 2
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Leia');
-    expect(player2.getAttribute('value')).toEqual('Han');
-    player2.click(); //winner Han
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Leia');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Han');
+    helperService.getPlayer2(matchNumber).click(); //winner Han
 
     var matchNumber = 2;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Chewy');
-    expect(player2.getAttribute('value')).toEqual('Vader');
-    player1.click(); //winner Chewy
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Chewy');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Vader');
+    helperService.getPlayer1(matchNumber).click(); //winner Chewy
 
     helperService.clickCompleteRoundButton();
 
@@ -493,11 +455,9 @@ describe('Brackets App - Success Scenarios autofills', () => {
     expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 3
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Han');
-    expect(player2.getAttribute('value')).toEqual('Chewy');
-    player2.click(); //winner Chewy
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Han');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Chewy');
+    helperService.getPlayer2(matchNumber).click(); //winner Chewy
 
     helperService.clickCompleteRoundButton();
 
@@ -690,10 +650,8 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
     expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 1
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Sally');
-    expect(player2.getAttribute('value')).toEqual('Ben');
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Sally');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Ben');
     //no winner
 
     helperService.clickCompleteRoundButton();
@@ -718,17 +676,13 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
     expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 1
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Sally');
-    expect(player2.getAttribute('value')).toEqual('Ben');
-    player1.click(); //winner Sally
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Sally');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Ben');
+    helperService.getPlayer1(matchNumber).click(); //winner Sally
 
     var matchNumber = 2;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Kim');
-    expect(player2.getAttribute('value')).toEqual('Dan');
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Kim');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Dan');
     //no winner
 
     helperService.clickCompleteRoundButton();
@@ -756,32 +710,24 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
     expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 1
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Sally');
-    expect(player2.getAttribute('value')).toEqual('Ben');
-    player2.click(); //winner Ben
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Sally');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Ben');
+    helperService.getPlayer2(matchNumber).click(); //winner Ben
 
     var matchNumber = 2;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Kim');
-    expect(player2.getAttribute('value')).toEqual('Dan');
-    player1.click(); //winner Kim
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Kim');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Dan');
+    helperService.getPlayer1(matchNumber).click(); //winner Kim
 
     var matchNumber = 3;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Rick');
-    expect(player2.getAttribute('value')).toEqual('Morty');
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Rick');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Morty');
     //no winner
 
     var matchNumber = 4;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Jerry');
-    expect(player2.getAttribute('value')).toEqual('Beth');
-    player2.click(); //winner Beth
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Jerry');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Beth');
+    helperService.getPlayer2(matchNumber).click(); //winner Beth
 
     helperService.clickCompleteRoundButton();
 
@@ -808,31 +754,23 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
     expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 1
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Sally');
-    expect(player2.getAttribute('value')).toEqual('Ben');
-    player2.click(); //winner Ben
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Sally');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Ben');
+    helperService.getPlayer2(matchNumber).click(); //winner Ben
 
     var matchNumber = 2;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Kim');
-    expect(player2.getAttribute('value')).toEqual('Dan');
-    player1.click(); //winner Kim
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Kim');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Dan');
+    helperService.getPlayer1(matchNumber).click(); //winner Kim
 
     var matchNumber = 3;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Rick');
-    expect(player2.getAttribute('value')).toEqual('Morty');
-    player2.click(); //winner Morty
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Rick');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Morty');
+    helperService.getPlayer2(matchNumber).click(); //winner Morty
 
     var matchNumber = 4;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Jerry');
-    expect(player2.getAttribute('value')).toEqual('Beth');
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Jerry');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Beth');
     //no winner
 
     helperService.clickCompleteRoundButton();
@@ -860,32 +798,24 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
     expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 1
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Sally');
-    expect(player2.getAttribute('value')).toEqual('Ben');
-    player2.click(); //winner Ben
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Sally');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Ben');
+    helperService.getPlayer2(matchNumber).click(); //winner Ben
 
     var matchNumber = 2;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Kim');
-    expect(player2.getAttribute('value')).toEqual('Dan');
-    player1.click(); //winner Kim
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Kim');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Dan');
+    helperService.getPlayer1(matchNumber).click(); //winner Kim
 
     var matchNumber = 3;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Rick');
-    expect(player2.getAttribute('value')).toEqual('Morty');
-    player2.click(); //winner Morty
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Rick');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Morty');
+    helperService.getPlayer2(matchNumber).click(); //winner Morty
 
     var matchNumber = 4;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Jerry');
-    expect(player2.getAttribute('value')).toEqual('Beth');
-    player2.click(); //winner Beth
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Jerry');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Beth');
+    helperService.getPlayer2(matchNumber).click(); //winner Beth
 
     helperService.clickCompleteRoundButton();
 
@@ -895,18 +825,14 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
     expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 2
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Ben');
-    expect(player2.getAttribute('value')).toEqual('Kim');
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Ben');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Kim');
     //no winner
 
     var matchNumber = 2;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Morty');
-    expect(player2.getAttribute('value')).toEqual('Beth');
-    player2.click(); //winner Beth
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Morty');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Beth');
+    helperService.getPlayer2(matchNumber).click(); //winner Beth
 
     helperService.clickCompleteRoundButton();
 
@@ -933,32 +859,24 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
     expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 1
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Sally');
-    expect(player2.getAttribute('value')).toEqual('Ben');
-    player2.click(); //winner Ben
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Sally');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Ben');
+    helperService.getPlayer2(matchNumber).click(); //winner Ben
 
     var matchNumber = 2;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Kim');
-    expect(player2.getAttribute('value')).toEqual('Dan');
-    player1.click(); //winner Kim
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Kim');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Dan');
+    helperService.getPlayer1(matchNumber).click(); //winner Kim
 
     var matchNumber = 3;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Rick');
-    expect(player2.getAttribute('value')).toEqual('Morty');
-    player2.click(); //winner Morty
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Rick');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Morty');
+    helperService.getPlayer2(matchNumber).click(); //winner Morty
 
     var matchNumber = 4;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Jerry');
-    expect(player2.getAttribute('value')).toEqual('Beth');
-    player2.click(); //winner Beth
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Jerry');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Beth');
+    helperService.getPlayer2(matchNumber).click(); //winner Beth
 
     helperService.clickCompleteRoundButton();
 
@@ -968,17 +886,13 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
     expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 2
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Ben');
-    expect(player2.getAttribute('value')).toEqual('Kim');
-    player2.click(); //winner Kim
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Ben');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Kim');
+    helperService.getPlayer2(matchNumber).click(); //winner Kim
 
     var matchNumber = 2;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Morty');
-    expect(player2.getAttribute('value')).toEqual('Beth');
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Morty');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Beth');
     //no winner
 
     helperService.clickCompleteRoundButton();
@@ -1006,32 +920,24 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
     expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 1
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Sally');
-    expect(player2.getAttribute('value')).toEqual('Ben');
-    player2.click(); //winner Ben
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Sally');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Ben');
+    helperService.getPlayer2(matchNumber).click(); //winner Ben
 
     var matchNumber = 2;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Kim');
-    expect(player2.getAttribute('value')).toEqual('Dan');
-    player1.click(); //winner Kim
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Kim');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Dan');
+    helperService.getPlayer1(matchNumber).click(); //winner Kim
 
     var matchNumber = 3;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Rick');
-    expect(player2.getAttribute('value')).toEqual('Morty');
-    player2.click(); //winner Morty
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Rick');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Morty');
+    helperService.getPlayer2(matchNumber).click(); //winner Morty
 
     var matchNumber = 4;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Jerry');
-    expect(player2.getAttribute('value')).toEqual('Beth');
-    player2.click(); //winner Beth
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Jerry');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Beth');
+    helperService.getPlayer2(matchNumber).click(); //winner Beth
 
     helperService.clickCompleteRoundButton();
 
@@ -1041,18 +947,14 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
     expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 2
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Ben');
-    expect(player2.getAttribute('value')).toEqual('Kim');
-    player2.click(); //winner Kim
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Ben');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Kim');
+    helperService.getPlayer2(matchNumber).click(); //winner Kim
 
     var matchNumber = 2;
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Morty');
-    expect(player2.getAttribute('value')).toEqual('Beth');
-    player2.click(); //winner Beth
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Morty');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Beth');
+    helperService.getPlayer2(matchNumber).click(); //winner Beth
 
     helperService.clickCompleteRoundButton();
 
@@ -1061,10 +963,8 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
     expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 3
-    var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
-    var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
-    expect(player1.getAttribute('value')).toEqual('Kim');
-    expect(player2.getAttribute('value')).toEqual('Beth');
+    expect(helperService.getPlayer1(matchNumber).getAttribute('value')).toEqual('Kim');
+    expect(helperService.getPlayer2(matchNumber).getAttribute('value')).toEqual('Beth');
     //no winner
 
     helperService.clickCompleteRoundButton();

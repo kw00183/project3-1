@@ -84,4 +84,12 @@ export class HelperService {
     var contestant7 = browser.findElement(by.id('contestant7'));
     contestant7.sendKeys('Beth');
   }
+
+  getPlayer1(matchNumber: number) {
+    return element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
+  }
+
+  getPlayer2(matchNumber: number) {
+    return element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
+  }
 }
