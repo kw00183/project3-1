@@ -16,12 +16,12 @@ describe('Brackets App - Routing Tests', () => {
     expect(element(by.id('subpageTitle')).getText()).toEqual('Brackets App');
   });
 
-  it('should navigate to the registration page', function() {
+  it('should navigate to the registration page with h2 tag that contains text Register Players', function() {
     helperService.clickRegistrationLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
   });
 
-  it('should navigate to the brackets page', function() {
+  it('should navigate to the brackets page with h2 tag that contains text Brackets', function() {
     helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
   });
@@ -42,6 +42,11 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
 
   beforeEach(() => {
     helperService = new HelperService();
+  });
+
+  it('should display registration page title Register Players', function() {
+    helperService.clickRegistrationLink();
+    expect(element(by.tagName('h2')).getText()).toEqual('Register Players');
   });
 
   it('should choose winner from input of 2 unique contestants (fields 0-1)', function() {
@@ -257,6 +262,11 @@ describe('Brackets App - Success Scenarios autofills', () => {
 
   beforeEach(() => {
     helperService = new HelperService();
+  });
+
+  it('should display brackets page subtitle Brackets', function() {
+    helperService.clickBracketsLink();
+    expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
   });
 
   it('should choose winner from autofill input Zoe/Kaylee', function() {
