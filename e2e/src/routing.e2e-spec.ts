@@ -61,6 +61,10 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
     helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
 
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
+
     var matchNumber = 1; //round 1
     var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
     var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
@@ -87,6 +91,10 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
     helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
 
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
+
     var matchNumber = 1; //round 1
     var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
     var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
@@ -110,6 +118,11 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
     helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
 
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 2');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
+
     var matchNumber = 1; //round 1
     var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
     var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
@@ -125,6 +138,10 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
     player2.click(); //winner Dan
 
     helperService.clickCompleteRoundButton();
+
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 2');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 2
     var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
@@ -157,6 +174,11 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
     helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
 
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 2');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
+
     var matchNumber = 1; //round 1
     var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
     var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
@@ -172,6 +194,10 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
     player2.click(); //winner Dan
 
     helperService.clickCompleteRoundButton();
+
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 2');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 2
     var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
@@ -196,6 +222,13 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
 
     helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
+
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 2');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 3');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 4');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 1
     var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
@@ -227,6 +260,11 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
 
     helperService.clickCompleteRoundButton();
 
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 2');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 2');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
+
     var matchNumber = 1; //round 2
     var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
     var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
@@ -242,6 +280,10 @@ describe('Brackets App - Success Scenarios 2,4,8', () => {
     player2.click(); //winner Beth
 
     helperService.clickCompleteRoundButton();
+
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 3');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 3
     var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
@@ -286,6 +328,10 @@ describe('Brackets App - Success Scenarios autofills', () => {
     helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
 
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
+
     var matchNumber = 1; //round 1
     var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
     var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
@@ -318,6 +364,11 @@ describe('Brackets App - Success Scenarios autofills', () => {
     helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
 
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 2');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
+
     var matchNumber = 1; //round 1
     var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
     var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
@@ -333,6 +384,10 @@ describe('Brackets App - Success Scenarios autofills', () => {
     player2.click(); //winner Ringo
 
     helperService.clickCompleteRoundButton();
+
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 2');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 2
     var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
@@ -375,6 +430,13 @@ describe('Brackets App - Success Scenarios autofills', () => {
     helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
 
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 2');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 3');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 4');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
+
     var matchNumber = 1; //round 1
     var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
     var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
@@ -405,6 +467,11 @@ describe('Brackets App - Success Scenarios autofills', () => {
 
     helperService.clickCompleteRoundButton();
 
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 2');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 2');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
+
     var matchNumber = 1; //round 2
     var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
     var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
@@ -420,6 +487,10 @@ describe('Brackets App - Success Scenarios autofills', () => {
     player1.click(); //winner Chewy
 
     helperService.clickCompleteRoundButton();
+
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 3');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 3
     var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
@@ -614,6 +685,10 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
     helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
 
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
+
     var matchNumber = 1; //round 1
     var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
     var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
@@ -636,6 +711,11 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
 
     helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
+
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 2');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 1
     var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
@@ -667,6 +747,13 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
 
     helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
+
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 2');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 3');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 4');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 1
     var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
@@ -713,6 +800,13 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
     helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
 
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 2');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 3');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 4');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
+
     var matchNumber = 1; //round 1
     var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
     var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
@@ -758,6 +852,13 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
     helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
 
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 2');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 3');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 4');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
+
     var matchNumber = 1; //round 1
     var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
     var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
@@ -787,6 +888,11 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
     player2.click(); //winner Beth
 
     helperService.clickCompleteRoundButton();
+
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 2');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 2');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 2
     var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
@@ -819,6 +925,13 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
     helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
 
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 2');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 3');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 4');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
+
     var matchNumber = 1; //round 1
     var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
     var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
@@ -848,6 +961,11 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
     player2.click(); //winner Beth
 
     helperService.clickCompleteRoundButton();
+
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 2');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 2');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 2
     var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
@@ -880,6 +998,13 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
     helperService.clickBracketsLink();
     expect(element(by.tagName('h2')).getText()).toEqual('Brackets');
 
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 2');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 3');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 4');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
+
     var matchNumber = 1; //round 1
     var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
     var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
@@ -910,6 +1035,11 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
 
     helperService.clickCompleteRoundButton();
 
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 2');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 2');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
+
     var matchNumber = 1; //round 2
     var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
     var player2 = element.all(by.css("input[name=match" + matchNumber + "]")).get(1);
@@ -925,6 +1055,10 @@ describe('Brackets App - Errors Scenarios - Brackets page', () => {
     player2.click(); //winner Beth
 
     helperService.clickCompleteRoundButton();
+
+    expect(element(by.tagName('h3')).getText()).toContain('Round: 3');
+    expect(element.all(by.tagName('h4')).getText()).toContain('Match 1');
+    expect(element(by.css("button[type = 'button']")).getText()).toEqual('Complete Round');
 
     var matchNumber = 1; //round 3
     var player1 = element.all(by.css("input[name=match" + matchNumber + "]")).get(0);
